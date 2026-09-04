@@ -18,3 +18,6 @@
 | **POST** | `/api/enrolments` | Enrols a participant into a specific event category. | Participant | `{ eventId, categoryId }` | 201 Created; 400 Bad Request; 403 Forbidden; 404 Not Found; 409 Conflict |
 | **GET** | `/api/enrolments/me` | Retrieves all event enrolments for the logged-in participant. | Participant | None | 200 OK; 401 Unauthorized; 403 Forbidden |
 | **GET** | `/api/events/{eventId}/enrolments` | Retrieves all enrolments for a specific event managed by the organiser. | Organiser | None | 200 OK; 401 Unauthorized; 403 Forbidden; 404 Not Found |
+| **POST** | `/api/enrolments/{enrolmentId}/results` | Captures the finish time and position for a participant's enrolment. | Organiser | `{ finishTime, overallPosition, categoryPosition, raceStatus }` | 201 Created; 400 Bad Request; 403 Forbidden; 404 Not Found |
+| **PUT** | `/api/results/{id}` | Updates an existing captured result. | Organiser | `{ finishTime, overallPosition, categoryPosition, raceStatus }` | 200 OK; 400 Bad Request; 403 Forbidden; 404 Not Found |
+| **GET** | `/api/results/me` | Retrieves all race results and performance history for the logged-in participant. | Participant | None | 200 OK; 401 Unauthorized; 403 Forbidden |
