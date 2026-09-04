@@ -47,3 +47,39 @@ CREATE TABLE EventRoutes (
     RouteMapUrl VARCHAR(255),
     FOREIGN KEY (EventID) REFERENCES Events(EventID) ON DELETE CASCADE
 );
+-- 4. CATEGORIES TABLE
+CREATE TABLE Categories (
+    CategoryID INT IDENTITY(1,1) PRIMARY KEY,
+    EventID INT NOT NULL,
+    CategoryName VARCHAR(100) NOT NULL,
+    DistanceKm DECIMAL(5,2) NOT NULL,
+    EntryFeeZAR DECIMAL(8,2) NOT NULL DEFAULT 0.00,
+    MinAge INT DEFAULT 0,
+    MaxAge INT DEFAULT 120,
+    GenderRestriction VARCHAR(10) DEFAULT 'Open' CHECK (GenderRestriction IN ('Male', 'Female', 'Open')),
+    FOREIGN KEY (EventID) REFERENCES Events(EventID) ON DELETE CASCADE
+);
+
+-- 5. ENROLMENTS TABLE
+CREATE TABLE Enrolments (
+    EnrolmentID INT IDENTITY(1,1) PRIMARY KEY,
+    ParticipantID INT NOT NULL,
+    CategoryID INT NOT NULL,
+    RaceNumber INT UNIQUE,
+    PaymentStatus VARCHAR(20) DEFAULT 'Pending' CHECK (PaymentStatus IN ('Pending', 'Paid', 'Refunded')),
+    EnrolmentDate DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (ParticipantID) REFERENCES Users(UserID),
+    FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID) ON DELETE CASCADE
+);
+
+-- 6. RESULTS TABLE
+CREATE TABLE Results (
+    ResultID INT IDENTITY(1,1) PRIMARY KEY,
+    EnrolmentID INT NOT NULL UNIQUE,
+    FinishTime TIME,
+    OverallPosition INT,
+    CategoryPosition INT,
+    RaceStatus VARCHAR(20) DEFAULT 'Finished' CHECK (RaceStatus IN ('Finished', 'DNF', 'DNS', 'Disqualified')),
+    CapturedAt DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (EnrolmentID) REFERENCES Enrolments(EnrolmentID) ON DELETE CASCADE
+);
