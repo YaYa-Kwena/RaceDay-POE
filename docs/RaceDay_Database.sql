@@ -113,3 +113,23 @@ INSERT INTO Categories (EventID, CategoryName, DistanceKm, EntryFeeZAR, MinAge, 
 (1, 'Open Women 42.2km', 42.20, 350.00, 18, 59, 'Female'),
 (2, 'Elite Cycling 109km', 109.00, 600.00, 18, 120, 'Open'),
 (3, 'Comrades Veterans 87km', 87.70, 1200.00, 40, 49, 'Open');
+-- Insert Enrolments
+INSERT INTO Enrolments (ParticipantID, CategoryID, RaceNumber, PaymentStatus) VALUES
+(3, 1, 10045, 'Paid'),
+(4, 3, 2201, 'Paid'),
+(5, 4, 30560, 'Paid');
+
+-- Insert Results
+INSERT INTO Results (EnrolmentID, FinishTime, OverallPosition, CategoryPosition, RaceStatus) VALUES
+(1, '03:15:22', 150, 45, 'Finished'),
+(2, '02:55:10', 42, 12, 'Finished');
+
+-- ====================================================================
+-- VERIFICATION: VIEW ALL SEEDED DATA
+-- ====================================================================
+SELECT * FROM Users;
+SELECT * FROM Events;
+SELECT * FROM EventRoutes;
+SELECT * FROM Categories;
+SELECT * FROM Enrolments;
+SELECT * FROM Results;
