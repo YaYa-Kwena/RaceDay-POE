@@ -1,18 +1,66 @@
 ERDiagram
     Users {
+        INT UserID PK
+        VARCHAR FirstName
+        VARCHAR LastName
+        VARCHAR Email
+        VARCHAR PasswordHash
+        VARCHAR UserRole
+        VARCHAR Gender
+        DATE DateOfBirth
+        VARCHAR PhoneNumber
+        VARCHAR EmergencyContactName
+        VARCHAR EmergencyContactPhone
+        TEXT MedicalConditions
+        DATETIME RegistrationDate
     }
 
     Events {
+        INT EventID PK
+        VARCHAR EventName
+        TEXT Description
+        VARCHAR EventType
+        DATE EventDate
+        TIME StartTime
+        VARCHAR LocationCity
+        VARCHAR LocationProvince
+        INT MaxCapacity
+        DATE RegistrationDeadline
+        BIT IsActive
+        DATETIME CreatedAt
     }
 
     EventRoutes {
+        INT RouteID PK
+        VARCHAR RouteName
+        DECIMAL TotalDistanceKm
+        INT ElevationGainMeters
+        INT WaterPointsCount
+        VARCHAR RouteMapUrl
     }
 
     Categories {
+        INT CategoryID PK
+        VARCHAR CategoryName
+        DECIMAL DistanceKm
+        DECIMAL EntryFeeZAR
+        INT MinAge
+        INT MaxAge
+        VARCHAR GenderRestriction
     }
 
     Enrolments {
+        INT EnrolmentID PK
+        INT RaceNumber
+        VARCHAR PaymentStatus
+        DATETIME EnrolmentDate
     }
 
     Results {
+        INT ResultID PK
+        TIME FinishTime
+        INT OverallPosition
+        INT CategoryPosition
+        VARCHAR RaceStatus
+        DATETIME CapturedAt
     }
