@@ -83,3 +83,15 @@ CREATE TABLE Results (
     CapturedAt DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (EnrolmentID) REFERENCES Enrolments(EnrolmentID) ON DELETE CASCADE
 );
+
+-- ====================================================================
+-- SEED DATA 
+-- ====================================================================
+
+-- Insert Users (2 Organisers, 3 Participants)
+INSERT INTO Users (FirstName, LastName, Email, PasswordHash, UserRole, Gender, DateOfBirth, PhoneNumber, EmergencyContactName, EmergencyContactPhone, MedicalConditions) VALUES
+('Sipho', 'Nkosi', 'sipho@raceday.co.za', 'hash1', 'Organiser', 'Male', '1980-05-15', '0821112222', 'Zanele Nkosi', '0823334444', 'None'),
+('Amina', 'Van Wyk', 'amina@raceday.co.za', 'hash2', 'Organiser', 'Female', '1985-08-22', '0831112222', 'Johan Van Wyk', '0833334444', 'None'),
+('Thabo', 'Mokoena', 'thabo@gmail.com', 'hash3', 'Participant', 'Male', '1992-12-01', '0711112222', 'Lerato Mokoena', '0713334444', 'Asthma'),
+('Jessica', 'Smith', 'jess@gmail.com', 'hash4', 'Participant', 'Female', '1995-03-10', '0721112222', 'Mark Smith', '0723334444', 'None'),
+('David', 'Naidoo', 'david@gmail.com', 'hash5', 'Participant', 'Male', '1975-11-30', '0841112222', 'Priya Naidoo', '0843334444', 'Diabetic');
