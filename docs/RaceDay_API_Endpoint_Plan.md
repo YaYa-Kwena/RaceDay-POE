@@ -9,3 +9,9 @@
 | **POST** | `/api/events` | Creates a new RaceDay event. | Organiser | `{ eventName, description, eventType, eventDate, startTime, locationCity, locationProvince, maxCapacity, registrationDeadline }` | 201 Created; 400 Bad Request; 401 Unauthorized; 403 Forbidden |
 | **PUT** | `/api/events/{id}` | Updates an existing event's details. | Organiser | `{ eventName, description, maxCapacity, registrationDeadline, isActive }` | 200 OK; 400 Bad Request; 403 Forbidden; 404 Not Found |
 | **DELETE** | `/api/events/{id}` | Deletes a specific event. | Organiser | None | 204 No Content; 403 Forbidden; 404 Not Found |
+| **GET** | `/api/events/{eventId}/categories` | Retrieves all categories for a specific event. | Any | None | 200 OK; 404 Not Found |
+| **POST** | `/api/events/{eventId}/categories` | Creates a new category for a specific event. | Organiser | `{ categoryName, distanceKm, entryFeeZAR, minAge, maxAge, genderRestriction }` | 201 Created; 400 Bad Request; 403 Forbidden |
+| **PUT** | `/api/categories/{id}` | Updates an existing event category. | Organiser | `{ categoryName, entryFeeZAR, maxAge, genderRestriction }` | 200 OK; 400 Bad Request; 403 Forbidden; 404 Not Found |
+| **DELETE** | `/api/categories/{id}` | Deletes a specific event category. | Organiser | None | 204 No Content; 403 Forbidden; 404 Not Found |
+| **GET** | `/api/events/{eventId}/routes` | Retrieves routes for a specific event. | Any | None | 200 OK; 404 Not Found |
+| **POST** | `/api/events/{eventId}/routes` | Creates a new route for an event. | Organiser | `{ routeName, totalDistanceKm, elevationGainMeters, waterPointsCount, routeMapUrl }` | 201 Created; 400 Bad Request; 403 Forbidden |
