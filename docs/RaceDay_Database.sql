@@ -95,3 +95,21 @@ INSERT INTO Users (FirstName, LastName, Email, PasswordHash, UserRole, Gender, D
 ('Thabo', 'Mokoena', 'thabo@gmail.com', 'hash3', 'Participant', 'Male', '1992-12-01', '0711112222', 'Lerato Mokoena', '0713334444', 'Asthma'),
 ('Jessica', 'Smith', 'jess@gmail.com', 'hash4', 'Participant', 'Female', '1995-03-10', '0721112222', 'Mark Smith', '0723334444', 'None'),
 ('David', 'Naidoo', 'david@gmail.com', 'hash5', 'Participant', 'Male', '1975-11-30', '0841112222', 'Priya Naidoo', '0843334444', 'Diabetic');
+-- Insert Events (3 Events)
+INSERT INTO Events (OrganiserID, EventName, Description, EventType, EventDate, StartTime, LocationCity, LocationProvince, MaxCapacity, RegistrationDeadline) VALUES
+(1, 'Soweto Marathon', 'The peoples race through historic Soweto.', 'Running', '2026-11-01', '05:30:00', 'Johannesburg', 'Gauteng', 25000, '2026-10-01'),
+(2, 'Cape Town Cycle Tour', 'Scenic coastal cycling route.', 'Cycling', '2026-03-08', '06:00:00', 'Cape Town', 'Western Cape', 35000, '2026-02-15'),
+(1, 'Comrades Marathon', 'The ultimate human race (Up Run).', 'Running', '2026-06-14', '05:30:00', 'Durban', 'KwaZulu-Natal', 20000, '2026-05-01');
+
+-- Insert Event Routes 
+INSERT INTO EventRoutes (EventID, RouteName, TotalDistanceKm, ElevationGainMeters, WaterPointsCount) VALUES
+(1, 'Soweto Full Marathon Route', 42.20, 450, 16),
+(2, 'Peninsula Loop', 109.00, 1200, 8),
+(3, 'Durban to Pietermaritzburg (Up)', 87.70, 1750, 43);
+
+-- Insert Categories
+INSERT INTO Categories (EventID, CategoryName, DistanceKm, EntryFeeZAR, MinAge, MaxAge, GenderRestriction) VALUES
+(1, 'Open Men 42.2km', 42.20, 350.00, 18, 59, 'Male'),
+(1, 'Open Women 42.2km', 42.20, 350.00, 18, 59, 'Female'),
+(2, 'Elite Cycling 109km', 109.00, 600.00, 18, 120, 'Open'),
+(3, 'Comrades Veterans 87km', 87.70, 1200.00, 40, 49, 'Open');
