@@ -15,3 +15,6 @@
 | **DELETE** | `/api/categories/{id}` | Deletes a specific event category. | Organiser | None | 204 No Content; 403 Forbidden; 404 Not Found |
 | **GET** | `/api/events/{eventId}/routes` | Retrieves routes for a specific event. | Any | None | 200 OK; 404 Not Found |
 | **POST** | `/api/events/{eventId}/routes` | Creates a new route for an event. | Organiser | `{ routeName, totalDistanceKm, elevationGainMeters, waterPointsCount, routeMapUrl }` | 201 Created; 400 Bad Request; 403 Forbidden |
+| **POST** | `/api/enrolments` | Enrols a participant into a specific event category. | Participant | `{ eventId, categoryId }` | 201 Created; 400 Bad Request; 403 Forbidden; 404 Not Found; 409 Conflict |
+| **GET** | `/api/enrolments/me` | Retrieves all event enrolments for the logged-in participant. | Participant | None | 200 OK; 401 Unauthorized; 403 Forbidden |
+| **GET** | `/api/events/{eventId}/enrolments` | Retrieves all enrolments for a specific event managed by the organiser. | Organiser | None | 200 OK; 401 Unauthorized; 403 Forbidden; 404 Not Found |
