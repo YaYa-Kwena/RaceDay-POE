@@ -1,0 +1,18 @@
+ERDiagram
+    Users {
+    }
+
+    Events {
+    }
+
+    EventRoutes {
+    }
+
+    Categories {
+    }
+
+    Enrolments {
+    }
+
+    Results {
+    }
