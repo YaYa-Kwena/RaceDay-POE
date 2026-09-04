@@ -17,6 +17,7 @@ ERDiagram
 
     Events {
         INT EventID PK
+        INT OrganiserID FK
         VARCHAR EventName
         TEXT Description
         VARCHAR EventType
@@ -32,6 +33,7 @@ ERDiagram
 
     EventRoutes {
         INT RouteID PK
+        INT EventID FK
         VARCHAR RouteName
         DECIMAL TotalDistanceKm
         INT ElevationGainMeters
@@ -41,6 +43,7 @@ ERDiagram
 
     Categories {
         INT CategoryID PK
+        INT EventID FK
         VARCHAR CategoryName
         DECIMAL DistanceKm
         DECIMAL EntryFeeZAR
@@ -51,6 +54,8 @@ ERDiagram
 
     Enrolments {
         INT EnrolmentID PK
+        INT ParticipantID FK
+        INT CategoryID FK
         INT RaceNumber
         VARCHAR PaymentStatus
         DATETIME EnrolmentDate
@@ -58,6 +63,7 @@ ERDiagram
 
     Results {
         INT ResultID PK
+        INT EnrolmentID FK
         TIME FinishTime
         INT OverallPosition
         INT CategoryPosition
