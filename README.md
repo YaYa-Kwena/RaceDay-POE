@@ -18,3 +18,6 @@ Can create an account, browse available events, enter an event by selecting a ca
 ## CI/CD
 The GitHub Actions workflow checks that the required Part 1 files exist in the correct directories.
 ![CI/CD Build Passing](ci-passing.png)
+
+## Video Demonstration
+YouTube Link: [https://youtu.be/bvNNprHwpd8]
