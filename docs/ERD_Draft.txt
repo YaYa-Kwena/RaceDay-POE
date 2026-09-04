@@ -70,3 +70,10 @@ ERDiagram
         VARCHAR RaceStatus
         DATETIME CapturedAt
     }
+
+    Users ||--o{ Events : "Organiser creates"
+    Events ||--o{ EventRoutes : "has"
+    Events ||--o{ Categories : "has"
+    Users ||--o{ Enrolments : "Participant has"
+    Categories ||--o{ Enrolments : "receives"
+    Enrolments ||--|| Results : "generates"
