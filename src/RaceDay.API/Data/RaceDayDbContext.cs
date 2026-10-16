@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using RaceDay.API.Helpers;
 using RaceDay.API.Models;
 
 namespace RaceDay.API.Data
@@ -78,7 +79,7 @@ namespace RaceDay.API.Data
 
             // Seed Data matching Part 1 SQL Script
             // SHA-256 hash below corresponds to "Password123!"
-            const string defaultPasswordHash = "c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd4";
+            string defaultPasswordHash = PasswordHasher.HashPassword("Password123!");
 
             modelBuilder.Entity<User>().HasData(
                 new User { UserID = 1, FirstName = "Sipho", LastName = "Nkosi", Email = "sipho@raceday.co.za", PasswordHash = defaultPasswordHash, UserRole = "Organiser", Gender = "Male", DateOfBirth = new DateTime(1980, 5, 15), PhoneNumber = "0821112222", EmergencyContactName = "Zanele Nkosi", EmergencyContactPhone = "0823334444", MedicalConditions = "None", RegistrationDate = new DateTime(2026, 1, 10) },
