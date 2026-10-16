@@ -55,4 +55,4 @@ The GitHub Actions workflow checks that the required Part 1 files exist in the c
 
 ## Video Demonstration
 YouTube Link Part 1: [https://youtu.be/bvNNprHwpd8]
-YouTube Link Part 2: []
+YouTube Link Part 2: [https://youtu.be/aaRnCwIw5CE]
