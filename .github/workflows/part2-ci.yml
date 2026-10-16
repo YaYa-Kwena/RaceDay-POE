@@ -1,0 +1,36 @@
+name: Part 2 API Build and Unit Tests CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Verify Part 1 docs and Part 2 project files exist
+        run: |
+          test -d docs
+          test -f docs/RaceDay_ERD.pdf
+          test -f docs/RaceDay_API_Endpoint_Plan.md
+          test -f docs/RaceDay_Database.sql
+          test -f src/RaceDay.API/RaceDay.API.csproj
+          test -f src/RaceDay.Tests/RaceDay.Tests.csproj
+
+      - name: Restore NuGet dependencies
+        run: dotnet restore src/RaceDay.Tests/RaceDay.Tests.csproj
+
+      - name: Build API and Test projects
+        run: dotnet build src/RaceDay.Tests/RaceDay.Tests.csproj --configuration Release --no-restore
+
+      - name: Run xUnit Unit Tests
+        run: dotnet test src/RaceDay.Tests/RaceDay.Tests.csproj --configuration Release --no-build --verbosity normal
