@@ -15,7 +15,7 @@ public class ParticipantController : Controller
     // --- 1. UPCOMING EVENTS & FILTERING ---
     public async Task<IActionResult> Index(string? type, string? search)
     {
-        if (!IsParticipant()) return RedirectToAction("Login", "Auth");
+        if (!IsParticipant()) return RedirectToAction("Login", "Account");
 
         var response = await _api.SendAsync(HttpMethod.Get, "api/events");
         var events = await _api.ReadAsync<List<Event>>(response) ?? new();
@@ -42,7 +42,7 @@ public class ParticipantController : Controller
     [HttpGet]
     public async Task<IActionResult> Details(int id)
     {
-        if (!IsParticipant()) return RedirectToAction("Login", "Auth");
+        if (!IsParticipant()) return RedirectToAction("Login", "Account");
 
         var response = await _api.SendAsync(HttpMethod.Get, $"api/events/{id}");
         var raceEvent = await _api.ReadAsync<Event>(response);
@@ -56,7 +56,7 @@ public class ParticipantController : Controller
     [HttpPost]
     public async Task<IActionResult> EnterEvent(int eventId, int categoryId)
     {
-        if (!IsParticipant()) return RedirectToAction("Login", "Auth");
+        if (!IsParticipant()) return RedirectToAction("Login", "Account");
 
         var request = new CreateEnrolmentRequestDto
         {
@@ -78,7 +78,7 @@ public class ParticipantController : Controller
     // --- 4. MY EVENTS ---
     public async Task<IActionResult> MyEvents()
     {
-        if (!IsParticipant()) return RedirectToAction("Login", "Auth");
+        if (!IsParticipant()) return RedirectToAction("Login", "Account");
 
         var response = await _api.SendAsync(HttpMethod.Get, "api/enrolments/me");
         var enrolments = await _api.ReadAsync<List<Enrolment>>(response) ?? new();
@@ -89,7 +89,7 @@ public class ParticipantController : Controller
     // --- 5. MY RESULTS ---
     public async Task<IActionResult> MyResults()
     {
-        if (!IsParticipant()) return RedirectToAction("Login", "Auth");
+        if (!IsParticipant()) return RedirectToAction("Login", "Account");
 
         var response = await _api.SendAsync(HttpMethod.Get, "api/results/me");
         var results = await _api.ReadAsync<List<MyResultVm>>(response) ?? new();

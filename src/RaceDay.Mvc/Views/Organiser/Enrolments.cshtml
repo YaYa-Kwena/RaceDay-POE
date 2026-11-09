@@ -54,9 +54,10 @@
                             <input type="hidden" name="enrolmentId" value="@enrol.EnrolmentID" />
                             <input type="hidden" name="eventId" value="@ViewBag.EventId" />
 
-                            <input type="time" name="FinishTime" class="form-control form-control-sm" step="1" required title="Finish Time" />
-                            <input type="number" name="OverallPosition" class="form-control form-control-sm" placeholder="Pos" style="width: 70px;" required />
-                            <select name="RaceStatus" class="form-select form-select-sm" style="width: 100px;">
+                            <!-- Prefix with dto. or match DTO property names -->
+                            <input type="time" name="dto.FinishTime" class="form-control form-control-sm" step="1" required title="Finish Time" />
+                            <input type="number" name="dto.OverallPosition" class="form-control form-control-sm" placeholder="Pos" style="width: 70px;" required />
+                            <select name="dto.RaceStatus" class="form-select form-select-sm" style="width: 100px;">
                                 <option value="Finished">Finished</option>
                                 <option value="DNF">DNF</option>
                                 <option value="DNS">DNS</option>
