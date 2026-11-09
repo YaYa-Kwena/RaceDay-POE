@@ -15,7 +15,7 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddHttpContextAccessor();
 
-// Register named HttpClient pointing to your Part 2 API
+// Register named HttpClient pointing to my Part 2 API
 builder.Services.AddHttpClient("RaceDayApi", client =>
 {
     string baseUrl = builder.Configuration["ApiSettings:BaseUrl"]
