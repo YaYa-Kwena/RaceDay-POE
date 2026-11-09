@@ -4,6 +4,7 @@ using RaceDay.API.Data;
 using RaceDay.API.DTOs;
 using RaceDay.API.Helpers;
 using RaceDay.API.Models;
+using RaceDay.API.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace RaceDay.API.Controllers
@@ -214,6 +215,25 @@ namespace RaceDay.API.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpPost("{id:int}/banner")]
+        [SwaggerOperation(Summary = "Uploads an event banner image to Azure Blob Storage.")]
+        public async Task<IActionResult> UploadBanner(int id, IFormFile file, [FromServices] BlobStorageService blobStorage)
+        {
+            if (!SessionAuthHelper.IsOrganiser(HttpContext.Session))
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { message = "Only organisers can upload event banners." });
+            }
+
+            var eventItem = await _context.Events.FindAsync(id);
+            if (eventItem == null) return NotFound(new { message = "Event not found." });
+
+            string url = await blobStorage.UploadAsync(file, "event-banners");
+            eventItem.BannerImageUrl = url;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { imageUrl = url });
         }
     }
 }

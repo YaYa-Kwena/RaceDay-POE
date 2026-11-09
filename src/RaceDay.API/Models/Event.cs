@@ -49,6 +49,8 @@ namespace RaceDay.API.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+        public string? BannerImageUrl { get; set; }
+
         public ICollection<Category> Categories { get; set; } = new List<Category>();
         public ICollection<EventRoute> EventRoutes { get; set; } = new List<EventRoute>();
         public ICollection<Enrolment> Enrolments { get; set; } = new List<Enrolment>();

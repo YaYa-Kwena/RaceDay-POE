@@ -1,10 +1,12 @@
-using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using RaceDay.API.Data;
+using RaceDay.API.Services;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<BlobStorageService>();
 // 1. Register Controllers
 builder.Services.AddControllers();
 
