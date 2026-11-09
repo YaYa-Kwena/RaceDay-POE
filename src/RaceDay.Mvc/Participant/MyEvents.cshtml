@@ -1,0 +1,46 @@
+﻿@model List<RaceDay.API.Models.Enrolment>
+
+<h2>My Event Enrolments</h2>
+<p class="text-muted">Track events you have registered and paid for.</p>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<table class="table table-striped mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th>Event Name</th>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Race No.</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr><td colspan="5" class="text-center text-muted">You have not enrolled in any events yet.</td></tr>
+        }
+        @foreach (var enrol in Model)
+        {
+            <tr>
+                <td class="fw-bold">@enrol.Event?.EventName</td>
+                <td>@enrol.Event?.EventDate.ToShortDateString()</td>
+                <td>@enrol.Category?.CategoryName</td>
+                <td>#@enrol.RaceNumber</td>
+                <td>
+                    @if (enrol.PaymentStatus == "Paid")
+                    {
+                        <span class="badge bg-success">Confirmed</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">@enrol.PaymentStatus</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

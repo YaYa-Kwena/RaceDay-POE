@@ -1,0 +1,43 @@
+﻿@model List<RaceDay.Mvc.Controllers.MyResultVm>
+
+<h2>My Race Results History</h2>
+<p class="text-muted">Review your official finish times and positions across completed events.</p>
+
+<table class="table table-bordered table-striped mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th>Event Name</th>
+            <th>Category</th>
+            <th>Race No.</th>
+            <th>Finish Time</th>
+            <th>Overall Position</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr><td colspan="6" class="text-center text-muted">No race results recorded yet.</td></tr>
+        }
+        @foreach (var res in Model)
+        {
+            <tr>
+                <td class="fw-bold">@res.EventName</td>
+                <td>@res.CategoryName</td>
+                <td>#@res.RaceNumber</td>
+                <td>@(res.FinishTime?.ToString() ?? "-")</td>
+                <td>@(res.OverallPosition?.ToString() ?? "-")</td>
+                <td>
+                    @if (res.RaceStatus == "Finished")
+                    {
+                        <span class="badge bg-success">Finished</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">@res.RaceStatus</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

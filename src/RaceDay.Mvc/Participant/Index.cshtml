@@ -1,0 +1,42 @@
+﻿@model List<RaceDay.API.Models.Event>
+
+<h2>Upcoming RaceDay Events</h2>
+<p class="text-muted">Browse upcoming events, filter by type or location, and register.</p>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-auto">
+        <select name="type" class="form-select">
+            <option value="">All Types</option>
+            <option value="Running">Running</option>
+            <option value="Walking">Walking</option>
+            <option value="Cycling">Cycling</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <input type="text" name="search" class="form-control" placeholder="Search event or city..." />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+</form>
+
+<div class="row">
+    @if (!Model.Any())
+    {
+        <div class="col-12"><p class="text-muted">No upcoming events found matching your filter.</p></div>
+    }
+    @foreach (var ev in Model)
+    {
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">@ev.EventName</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@ev.EventDate.ToShortDateString() at @ev.StartTime</h6>
+                    <p class="card-text mb-1"><strong>Location:</strong> @ev.LocationCity, @ev.LocationProvince</p>
+                    <p class="card-text mb-3">@ev.Description</p>
+                    <a asp-action="Details" asp-route-id="@ev.EventID" class="btn btn-outline-success btn-sm">View Details & Enrol</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
