@@ -59,4 +59,20 @@ public class RaceDayApiClient
 
         return sessionHeader?.Split(';', 2)[0];
     }
+
+    public async Task<HttpResponseMessage> UploadFileAsync(string url, IFormFile file)
+    {
+        var client = _factory.CreateClient("RaceDayApi");
+        using var request = CreateRequest(HttpMethod.Post, url);
+
+        using var form = new MultipartFormDataContent();
+        using var stream = file.OpenReadStream();
+        var fileContent = new StreamContent(stream);
+        fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+
+        form.Add(fileContent, "file", file.FileName);
+        request.Content = form;
+
+        return await client.SendAsync(request);
+    }
 }
