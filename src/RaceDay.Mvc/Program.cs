@@ -1,3 +1,4 @@
+using System.Net;
 using RaceDay.Mvc.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,12 +26,24 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddHttpContextAccessor();
 
-// Register named HttpClient pointing to your API
+// Register CookieContainer to manage and persist session cookies automatically
+builder.Services.AddSingleton<CookieContainer>();
+
+// Register named HttpClient pointing to your API with automatic cookie handling
 builder.Services.AddHttpClient("RaceDayApi", client =>
 {
     string baseUrl = builder.Configuration["ApiSettings:BaseUrl"]
         ?? throw new InvalidOperationException("ApiSettings:BaseUrl is missing.");
     client.BaseAddress = new Uri(baseUrl);
+})
+.ConfigurePrimaryHttpMessageHandler(provider =>
+{
+    var cookieContainer = provider.GetRequiredService<CookieContainer>();
+    return new HttpClientHandler
+    {
+        CookieContainer = cookieContainer,
+        UseCookies = true
+    };
 });
 
 builder.Services.AddScoped<RaceDayApiClient>();

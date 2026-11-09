@@ -32,6 +32,13 @@ public class AccountController : Controller
 
         if (response.IsSuccessStatusCode)
         {
+            // 1. EXTRACT AND SAVE THE API SESSION COOKIE
+            string? sessionCookie = RaceDayApiClient.ExtractSessionCookie(response);
+            if (!string.IsNullOrEmpty(sessionCookie))
+            {
+                HttpContext.Session.SetString("ApiSessionCookie", sessionCookie);
+            }
+
             var authResult = await response.Content.ReadFromJsonAsync<LoginResponse>();
 
             if (authResult != null)
@@ -41,7 +48,7 @@ public class AccountController : Controller
                 HttpContext.Session.SetString("UserName", authResult.FirstName);
                 HttpContext.Session.SetString("UserRole", authResult.Role);
 
-                // CRITICAL FIX: Commit the session so it persists immediately before redirecting
+                // Commit the session so it persists immediately
                 await HttpContext.Session.CommitAsync();
 
                 // Redirect based on role
@@ -56,14 +63,14 @@ public class AccountController : Controller
 
         ModelState.AddModelError(string.Empty, "Invalid login attempt. Please check your credentials.");
         return View(request);
-    }
-
-    public async Task<IActionResult> Logout()
+    }public async Task<IActionResult> Logout()
     {
+        // Optional: call API logout endpoint if needed, then clear local session
         HttpContext.Session.Clear();
         await HttpContext.Session.CommitAsync();
         return RedirectToAction("Index", "Home");
     }
+
 }
 
 // Helper class to match the JSON response from your API's Login method
