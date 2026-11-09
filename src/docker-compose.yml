@@ -1,0 +1,6 @@
+services:
+  raceday.mvc:
+    image: ${DOCKER_REGISTRY-}racedaymvc
+    build:
+      context: .
+      dockerfile: RaceDay.Mvc/Dockerfile
