@@ -1,0 +1,71 @@
+﻿@model List<RaceDay.API.Models.Enrolment>
+
+<h2>Event Enrolments & Results</h2>
+<a asp-action="Index" class="btn btn-secondary mb-3">Back to Dashboard</a>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<table class="table table-striped table-bordered mt-2">
+    <thead class="table-dark">
+        <tr>
+            <th>Race No.</th>
+            <th>Participant</th>
+            <th>Category</th>
+            <th>Payment Status</th>
+            <th>Result / Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr><td colspan="5" class="text-center text-muted">No participants enrolled yet.</td></tr>
+        }
+        @foreach (var enrol in Model)
+        {
+            <tr>
+                <td>#@enrol.RaceNumber</td>
+                <td>@enrol.Participant?.FirstName @enrol.Participant?.LastName</td>
+                <td>@enrol.Category?.CategoryName</td>
+                <td>
+                    @if (enrol.PaymentStatus == "Paid")
+                    {
+                        <span class="badge bg-success">Paid</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">@enrol.PaymentStatus</span>
+                    }
+                </td>
+                <td>
+                    @if (enrol.Result != null)
+                    {
+                        <span class="fw-bold text-success">Finished: @enrol.Result.FinishTime (Pos: @enrol.Result.OverallPosition)</span>
+                    }
+                    else
+                    {
+                        <form asp-action="CaptureResult" method="post" class="d-flex gap-2 align-items-center">
+                            <input type="hidden" name="enrolmentId" value="@enrol.EnrolmentID" />
+                            <input type="hidden" name="eventId" value="@ViewBag.EventId" />
+
+                            <input type="time" name="FinishTime" class="form-control form-control-sm" step="1" required title="Finish Time" />
+                            <input type="number" name="OverallPosition" class="form-control form-control-sm" placeholder="Pos" style="width: 70px;" required />
+                            <select name="RaceStatus" class="form-select form-select-sm" style="width: 100px;">
+                                <option value="Finished">Finished</option>
+                                <option value="DNF">DNF</option>
+                                <option value="DNS">DNS</option>
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-primary">Capture</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

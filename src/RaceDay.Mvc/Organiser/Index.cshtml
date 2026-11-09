@@ -1,0 +1,30 @@
+﻿@model List<RaceDay.API.Models.Event>
+
+<h2>Organiser Dashboard</h2>
+<p class="text-muted">Manage your events, view participant lists, and capture results.</p>
+
+<a asp-action="CreateEvent" class="btn btn-primary mb-4">Create New Event</a>
+
+<div class="row">
+    @if (!Model.Any())
+    {
+        <div class="col-12"><p class="text-muted">You have not created any events yet.</p></div>
+    }
+    @foreach (var ev in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title text-success">@ev.EventName</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@ev.EventDate.ToShortDateString()</h6>
+                    <p class="card-text mb-1"><strong>Location:</strong> @ev.LocationCity, @ev.LocationProvince</p>
+                    <p class="card-text mb-3"><small>Type: @ev.EventType | Distance: @ev.DistanceKm km</small></p>
+
+                    <div class="d-flex gap-2">
+                        <a asp-action="Enrolments" asp-route-eventId="@ev.EventID" class="btn btn-sm btn-secondary">Enrolments</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
