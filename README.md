@@ -5,6 +5,26 @@ RaceDay is a full-stack web-based event management platform designed for the Sou
 
 ---
 
+# RaceDay - Event Management & Participant Platform
+
+RaceDay is a full-stack .NET 8 solution featuring a secure Web API backend and an interactive ASP.NET Core MVC front-end client, designed for managing athletic events, participant registrations, category filtering, and official race result capture.
+
+## 🏗️ Architecture & Tech Stack
+* **Backend:** ASP.NET Core Web API (.NET 8), Entity Framework Core, SQL Server, Azure Blob Storage[cite: 10].
+* **Frontend:** ASP.NET Core MVC, Bootstrap, Razor Views, Session-based Authentication.
+* **Containerization:** Docker Desktop, Docker Compose.
+* **Testing:** xUnit / MSTest unit testing suite (`RaceDay.Tests`).
+
+## 🚀 Getting Started & Local Setup
+
+### Prerequisites
+* .NET 8.0 SDK installed
+* SQL Server (LocalDB or SQL Server Express)
+* Docker Desktop (optional for containerized deployment)
+
+### Running Locally
+1. Clone the repository and navigate to the source directory:
+
 ## User Roles
 ### 1. Organiser
 * Can register and log in with server-side session authentication[cite: 38, 39].
@@ -48,11 +68,34 @@ RaceDay is a full-stack web-based event management platform designed for the Sou
 2. Open `RaceDay_Database.sql` from the `/docs` folder.
 3. Execute the script to generate tables, constraints, and seed data.
 
+bash
+cd src
+
+2. Update your connection string in `RaceDay.API/appsettings.json`.
+3. Run the API project:
+bash
+dotnet run --project RaceDay.API --urls http://localhost:5000
+
+4. Open a second terminal and run the MVC front-end application:
+bash
+dotnet run --project RaceDay.Mvc
+
+
+## 🐳 Docker Deployment
+Build and run the MVC front-end inside a container linked to your host API:
+bash
+docker build -f RaceDay.Mvc/Dockerfile -t raceday-mvc:latest .
+docker run -d --name raceday-container -p 8080:8080 -e ApiSettings__BaseUrl=http://host.docker.internal:5000/ raceday-mvc:latest
+
+Access the application at `http://localhost:8080`.
+
 ## CI/CD
 The GitHub Actions workflow checks that the required Part 1 files exist in the correct directories.
 ![CI/CD Build Passing Part 1](ci-passing.png)
 ![CI/CD Build Passing Part 2](part2-ci-passing.png)
+![CI/CD Build Passing Part 3](part3-ci-passing.png)
 
 ## Video Demonstration
 YouTube Link Part 1: [https://youtu.be/bvNNprHwpd8]
 YouTube Link Part 2: [https://youtu.be/aaRnCwIw5CE]
+YouTube Link Part 3: [https://youtu.be/arCnRqIq6PD]
